@@ -7,6 +7,7 @@ var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
+var gameState = "onsling"
 
 
 function preload() {
@@ -17,6 +18,29 @@ function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
     world = engine.world;
+    // number
+    var marks = 100;
+    // string
+    var name = "Dhir";
+    // bollean
+    var pass  = true;
+
+    
+    console.log(marks);
+    console.log(name);
+    console.log(pass);
+
+    //array multple values can be stored 
+
+    var arr1 = [name, marks, pass];
+    console.log(arr1);
+
+    arr2 = [[1,2,3,4], [5,6,7], [8,10]];
+    console.log(arr2[2][0]);
+    console.log(arr2[1][1]);
+    for(var i=0; i< arr1.length; i++){
+        console.log(arr1[i]);
+    }
 
 
     ground = new Ground(600,height,1200,20);
@@ -41,6 +65,7 @@ function setup(){
 
     //log6 = new Log(230,180,80, PI/2);
     slingshot = new SlingShot(bird.body,{x:200, y:50});
+    console.log(bird);
 }
 
 function draw(){
@@ -69,12 +94,15 @@ function draw(){
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    if( gameState !== "launched"){
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    }
 }
 
 
 function mouseReleased(){
     slingshot.fly();
+    gameState="launched";
 }
 
 function keyPressed(){
